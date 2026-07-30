@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bf2bot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <server address="127.0.0.1" port="16567" loginserver="gpcm.gamespy.com" mod="mods/bf2" autoreconnect="true">
+    <client nickname="BOT1NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX1" />
+    <client nickname="BOT2NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX2" />
+    <client nickname="BOT3NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX3" />
+    <client nickname="BOT4NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX4" />
+    <client nickname="BOT5NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX5" />
+    <client nickname="BOT6NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX6" />
+    <client nickname="BOT7NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX7" />
+    <client nickname="BOT8NAMEHERE" password="botplayer" cdkey="RAX1RAX1RAX1RAX1RAX8" />
+  </server>
+</bf2bot>
