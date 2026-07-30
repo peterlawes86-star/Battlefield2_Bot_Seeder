@@ -1,0 +1,122 @@
+<Window x:Class="BF2BotManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Battlefield 2 Bot Manager" Height="720" Width="1020"
+        Background="#1E1E1E">
+    <Window.Resources>
+        <!-- DataGrid Header Style for Black Text -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="180"/>
+        </Grid.RowDefinitions>
+
+        <!-- Server & Login Configuration Panel -->
+        <GroupBox Header="Server Configuration" Foreground="White" Grid.Row="0" Margin="0,0,0,10">
+            <WrapPanel Margin="5">
+                <TextBlock Text="Game Server IP:" Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="TxtAddress" Width="120" Margin="5" Padding="3" Background="#2D2D30" Foreground="White"/>
+
+                <TextBlock Text="Port:" Foreground="White" VerticalAlignment="Center" Margin="10,5,5,5"/>
+                <TextBox x:Name="TxtPort" Width="50" Margin="5" Padding="3" Background="#2D2D30" Foreground="White"/>
+
+                <TextBlock Text="Login Server Host:" Foreground="White" VerticalAlignment="Center" Margin="10,5,5,5"/>
+                <TextBox x:Name="TxtLoginServer" Width="140" Margin="5" Padding="3" Background="#2D2D30" Foreground="White" ToolTip="Default: gpcm.gamespy.com"/>
+
+                <TextBlock Text="Mod:" Foreground="White" VerticalAlignment="Center" Margin="10,5,5,5"/>
+                <TextBox x:Name="TxtMod" Width="80" Margin="5" Padding="3" Background="#2D2D30" Foreground="White"/>
+
+                <Button Content="Load XML" Click="BtnLoadXml_Click" Margin="10,5,5,5" Padding="10,3" Background="#007ACC" Foreground="White"/>
+                <Button Content="Save XML" Click="BtnSaveXml_Click" Margin="5" Padding="10,3" Background="#3E3E42" Foreground="White"/>
+                <Button Content="Open Log File" Click="BtnOpenLogFile_Click" Margin="5" Padding="10,3" Background="#6C757D" Foreground="White"/>
+
+                <CheckBox x:Name="ChkAutoReconnect" Content="Enable Auto-Reconnect" Foreground="White" VerticalAlignment="Center" Margin="15,5,5,5"
+                          Checked="ChkAutoReconnect_Changed" Unchecked="ChkAutoReconnect_Changed"/>
+            </WrapPanel>
+        </GroupBox>
+
+        <!-- Add / Edit Bot Section -->
+        <GroupBox x:Name="GrpAddEditBot" Header="Add Bot" Foreground="White" Grid.Row="1" Margin="0,0,0,10">
+            <WrapPanel Margin="5">
+                <TextBlock Text="Nickname:" Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="TxtNewNickname" Width="140" Margin="5" Padding="3" Background="#2D2D30" Foreground="White"/>
+
+                <TextBlock Text="Password:" Foreground="White" VerticalAlignment="Center" Margin="10,5,5,5"/>
+                <TextBox x:Name="TxtNewPassword" Width="120" Margin="5" Padding="3" Background="#2D2D30" Foreground="White"/>
+
+                <TextBlock Text="CDKey:" Foreground="White" VerticalAlignment="Center" Margin="10,5,5,5"/>
+                <TextBox x:Name="TxtNewCDKey" Width="220" Margin="5" Padding="3" Background="#2D2D30" Foreground="White"/>
+
+                <Button x:Name="BtnAddOrUpdateBot" Content="Add Bot" Click="BtnAddOrUpdateBot_Click" Margin="15,5,5,5" Padding="15,3" Background="#28A745" Foreground="White" FontWeight="Bold"/>
+            </WrapPanel>
+        </GroupBox>
+
+        <!-- Interactive Bot DataGrid -->
+        <DataGrid x:Name="DgBots" Grid.Row="2" AutoGenerateColumns="False" Background="#252526" RowBackground="#2D2D30" 
+                  AlternatingRowBackground="#333337" Foreground="White" GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                  SelectionMode="Single" IsReadOnly="True">
+            
+            <DataGrid.ContextMenu>
+                <ContextMenu Background="#2D2D30" Foreground="White">
+                    <MenuItem Header="Start Selected Bot" Click="MenuStartBot_Click"/>
+                    <MenuItem Header="Stop Selected Bot" Click="MenuStopBot_Click"/>
+                    <MenuItem Header="Edit Selected Bot" Click="MenuEditBot_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Remove Bot" Click="MenuRemoveBot_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Bot Nickname" Binding="{Binding Nickname}" Width="160"/>
+                <DataGridTextColumn Header="Password" Binding="{Binding Password}" Width="120"/>
+                <DataGridTextColumn Header="CD Key" Binding="{Binding CDKey}" Width="220"/>
+                <DataGridTextColumn Header="Connection State" Binding="{Binding Status}" Width="180"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Control Bar -->
+        <Grid Grid.Row="3" Margin="0,10,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="TxtLogFilePath" Foreground="#888888" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Content="START ALL BOTS" Click="BtnStartAll_Click" Width="140" Height="35" Background="#28A745" Foreground="White" FontWeight="Bold" Margin="5"/>
+                <Button Content="STOP ALL BOTS" Click="BtnStopAll_Click" Width="140" Height="35" Background="#DC3545" Foreground="White" FontWeight="Bold" Margin="5"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Console Output -->
+        <GroupBox Header="Live Console Log" Foreground="White" Grid.Row="4">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Live Console Log" Foreground="White" VerticalAlignment="Center"/>
+                        <Button Content="Copy Log" Click="BtnCopyLog_Click" Margin="15,0,0,0" Padding="8,2" 
+                                Background="#007ACC" Foreground="White" FontSize="11"
+                                ToolTip="Copy all console log text to clipboard"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+            <TextBox x:Name="TxtLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" 
+                     Background="#0C0C0C" Foreground="#00FF66" FontFamily="Consolas" FontSize="12" TextWrapping="Wrap"/>
+        </GroupBox>
+    </Grid>
+</Window>
